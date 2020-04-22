@@ -1,24 +1,85 @@
-The Employee service is a Maven-built Spring Boot and Spring 5 REST web service running on a Tomcat server with an in-memory H2 SQL database backend.
+#### Employee Service
 
-The service uses JDBC to directly access the backend database rather than the Java Persistence API so that specific SQL queries could be tuned for maximum performance and can be configured to use lazy or eager loading of the employee hierarchy.  However, this could be changed to using JPA2 and Hibernate and configuring eager or lazy loading with a possible performance penalty and less control.
+The Employee service is a Maven Spring Boot and Spring 5 REST micro web service running on an imbeded Tomcat server with an in-memory H2 SQL database backend.
 
-A docker file is provided for a Windows Server image with remote debugging.
+#### Implementation
+The service uses JDBC to directly access the backend database rather than the Java Persistence API so that specific SQL queries could be tuned for maximum performance and can be configured to use lazy or eager loading of the employee hierarchy.  However, this could be changed to using JPA2 and Hibernate and configuring eager or lazy loading with a possible performance penalty and less control.  The Properties table is not very suitable in a relational database, it is used just as an example.
 
-The database is provided with sample SQL data and consists of two tables, one that models the employee hierachy and one that supports an arbitrary dictionary of employee properties.  The database configuration can be found in the resources folder of the source code.
+#### Docker
 
-The service is configured to run on HTTP://localhost:8081.
+A docker file is provided for a Windows Server image with remote debugging enabled.
 
-The REST API's for the service are the following:
+#### Database
+The database is provided with sample SQL data and consists of two tables, one that models the employee hierachy and one that supports an arbitrary dictionary of employee properties.  
 
-==========================================================
-HTTP://localhost:8081/employees
+#### Schema
+**EMPLOYEE**
+A primary id for an employee and a reference to the employees supervisor.
+
+| Column        | Type          |
+| ------------- | ------------- |
+| ID            | BIGINT(19)    |
+| SUPERVISOR_ID | BIGINT(19)    |
+
+**PROPERTIES**
+A map of key/value pairs of properties assigned to an employee.
+
+| Column        | Type          |
+| ------------- | ------------- |
+| EMPLOYEE_ID   | BIGINT(19)    |
+| KEY           | VARCHAR(256)  |
+| VALUE         | VARCHAR(256)  |
+
+#### REST API:
+
+The REST endpoints for the service are the following:
+
+#####employees
 
 Returns a JSON string of all top level employees and their direct reports (either one level deep or with eager loading).
 
-==========================================================
-HTTP://localhost:8081/employees/{id}
+
+#####employees/{id}
 
 Returns a JSON string of a specific employee ID and their direct reports (either one level deep or with eager loading)
+
+Sample JSON:
+
+_{
+   "supervisorId" : 1,
+   "properties" : {
+     "name" : "Joe Doe VP",
+     "title" : "Vice President of Sales"
+   },
+   "directReportsArray" : [ {
+     "supervisorId" : 2,
+     "properties" : {
+       "name" : "Jane Doe DR",
+       "region" : "North America",
+       "title" : "Regional Director of Sales"
+     },
+     "directReportsArray" : [ {
+       "supervisorId" : 3,
+       "properties" : {
+         "name" : "Jack Sales Rep",
+         "title" : "Sales Representative"
+       },
+       "directReportsArray" : [ ],
+       "id" : 4
+     } ],
+     "id" : 3
+   }, {
+     "supervisorId" : 2,
+     "properties" : {
+       "region" : "Europe",
+       "title" : "Regional Director of Sales"
+     },
+     "directReportsArray" : [ ],
+     "id" : 5
+   } ],
+   "id" : 2
+ }_
  
-Richard Baker
-jobs@richabaker.com 
+####Richard Baker
+
+####jobs@richabaker.com 
