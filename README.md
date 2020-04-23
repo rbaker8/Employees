@@ -88,4 +88,4 @@ _{
 
 #### jobs@richabaker.com 
 
-linkedin: <div class="LI-profile-badge"  data-version="v1" data-size="large" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="richard-baker-a71bb827"><a class="LI-simple-link" href='https://www.linkedin.com/in/richard-baker-a71bb827?trk=profile-badge'>Richard Baker</a></div>
+https://www.linkedin.com/in/richard-baker-a71bb827
