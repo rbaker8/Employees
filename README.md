@@ -1,24 +1,91 @@
-The Employee service is a Maven-built Spring Boot and Spring 5 REST web service running on a Tomcat server with an in-memory H2 SQL database backend.
+#### Employee Service
 
-The service uses JDBC to directly access the backend database rather than the Java Persistence API so that specific SQL queries could be tuned for maximum performance and can be configured to use lazy or eager loading of the employee hierarchy.  However, this could be changed to using JPA2 and Hibernate and configuring eager or lazy loading with a possible performance penalty and less control.
+The Employee service is a Spring Boot and Spring 5 REST micro service running on an embedded Tomcat server with an in-memory H2 SQL database backend for demonstration purposes.
 
-A docker file is provided for a Windows Server image with remote debugging.
+#### Implementation
+In branch V_1, the service uses JDBC to directly access the backend database rather than JPA2/Hibernate so that specific SQL queries could be demonstrated and tuned for maximum performance.
 
-The database is provided with sample SQL data and consists of two tables, one that models the employee hierachy and one that supports an arbitrary dictionary of employee properties.  The database configuration can be found in the resources folder of the source code.
+In branch V_2, the service uses JPA2 and Hibernate rather than directly using JDBC.  The service also uses the default OAuth2 authentication and TLS 1.3 security for demonstration purposes.
 
-The service is configured to run on HTTP://localhost:8081.
+The PROPERTIES database table is not very suitable in a relational database, it is more appropriate for a no SQL database.  It is used just as an example here.
 
-The REST API's for the service are the following:
+#### Docker
 
-==========================================================
-HTTP://localhost:8081/employees
+A docker file is provided for a Windows Server/openJDK image with remote debugging enabled.
 
-Returns a JSON string of all top level employees and their direct reports (either one level deep or with eager loading).
+#### Database
+The database is provided with sample SQL data and consists of two tables, one that models the employee hierachy and one that supports an arbitrary dictionary of employee properties.  
 
-==========================================================
-HTTP://localhost:8081/employees/{id}
+##### Schema
+**EMPLOYEE**
+A primary id for an employee and a reference to the employees supervisor.
 
-Returns a JSON string of a specific employee ID and their direct reports (either one level deep or with eager loading)
+| Column        | Type          |
+| ------------- | ------------- |
+| ID            | BIGINT(19)    |
+| SUPERVISOR_ID | BIGINT(19)    |
+
+**PROPERTIES**
+A map of key/value pairs of properties assigned to an employee.
+
+| Column        | Type          |
+| ------------- | ------------- |
+| EMPLOYEE_ID   | BIGINT(19)    |
+| KEY           | VARCHAR(256)  |
+| VALUE         | VARCHAR(256)  |
+
+#### REST API:
+
+The REST endpoints for the service are the following:
+
+##### employees
+
+Returns all top level employees and their direct reports (configurable for eager or lazy loading).
+
+
+##### employees/{id}
+
+Returns a specific employee and their direct reports (configurable for eager or lazy loading)
+
+#### Sample JSON:
+
+_{
+   "supervisorId" : 1,
+   "properties" : {
+     "name" : "Joe Doe VP",
+     "title" : "Vice President of Sales"
+   },
+   "directReportsArray" : [ {
+     "supervisorId" : 2,
+     "properties" : {
+       "name" : "Jane Doe DR",
+       "region" : "North America",
+       "title" : "Regional Director of Sales"
+     },
+     "directReportsArray" : [ {
+       "supervisorId" : 3,
+       "properties" : {
+         "name" : "Jack Sales Rep",
+         "title" : "Sales Representative"
+       },
+       "directReportsArray" : [ ],
+       "id" : 4
+     } ],
+     "id" : 3
+   }, {
+     "supervisorId" : 2,
+     "properties" : {
+       "region" : "Europe",
+       "title" : "Regional Director of Sales"
+     },
+     "directReportsArray" : [ ],
+     "id" : 5
+   } ],
+   "id" : 2
+ }_
  
-Richard Baker
-jobs@richabaker.com 
+#### Richard Baker
+
+#### jobs@richabaker.com 
+
+https://www.linkedin.com/in/richard-baker-a71bb827
