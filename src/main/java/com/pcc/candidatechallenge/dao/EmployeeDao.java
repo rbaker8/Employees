@@ -1,6 +1,10 @@
 package com.pcc.candidatechallenge.dao;
 
+import com.pcc.candidatechallenge.config.HibernateUtil;
 import com.pcc.candidatechallenge.model.Employee;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -8,6 +12,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+import javax.persistence.Query;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,12 +24,33 @@ import java.util.Map;
 @Repository
 public class EmployeeDao
 {
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SessionFactory sessionFactory;
 
     @Autowired
     public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException
     {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    @Resource(name = "sessionFactory")
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public List<Employee> getTopLevelEmployees()
+    {
+        
+        Session session = sessionFactory.getCurrentSession();
+        
+        Transaction tx = session.beginTransaction();
+
+        //HQL Query Example
+        return session.createQuery("FROM Employee WHERE supervisor_id is null").list();
     }
 
     private List<Employee> query(String sql, Map<String, Object> params, boolean recursiveLoad)

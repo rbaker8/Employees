@@ -11,11 +11,16 @@ import javax.sql.DataSource;
 public class SpringDBConfig
 {
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Bean
-    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
-        return new NamedParameterJdbcTemplate(dataSource);
+    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate()
+    {
+        return new NamedParameterJdbcTemplate(getDataSource());
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
     }
 }
 

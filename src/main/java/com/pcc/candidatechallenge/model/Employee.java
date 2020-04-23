@@ -1,16 +1,38 @@
 package com.pcc.candidatechallenge.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Employee
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.*;
+
+@Entity(name = "Employee")
+@Table(name="employee")
+@Access(value=AccessType.FIELD)
+public class Employee implements Serializable
 {
+    @Id
+    @Column(name = "id", unique = true, nullable = false)
     private long Id;
-    private long supervisorId;
-    private Map<String, String> properties;
+
+    @ManyToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @JoinColumn(name="supervisor_id")
+    @JsonIgnore
+    private Employee supervisor;
+    @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @JoinColumn(name="employee_id")
+    private Set<EmployeeProperty> employeeProperties;
+
+    @OneToMany(mappedBy="supervisor")
+    private Set<Employee> subordinates = new HashSet<Employee>();
+
+    @Column(name="supervisor_id", insertable=false, updatable=false)
+    private Long supervisorId;
+
+    @Transient
     private List<Employee> directReportsArray;
+    @Transient
+    private Map<String, String> properties;
 
     public Employee()
     {
@@ -30,12 +52,12 @@ public class Employee
         return this.Id;
     }
 
-    public void setSupervisorId(long Id)
+    public void setSupervisorId(Long Id)
     {
         this.supervisorId = Id;
     }
 
-    public long getSupervisorId()
+    public Long getSupervisorId()
     {
         return this.supervisorId;
     }
@@ -52,5 +74,34 @@ public class Employee
     public Map<String, String> getProperties()
     {
         return this.properties;
+    }
+
+    public void setSubordinates(Set<Employee> subordinates)
+    {
+        this.subordinates = subordinates;
+    }
+
+    public Set<Employee> getSubordinates()
+    {
+        return this.subordinates;
+    }
+
+    public void setEmployeeProperties(Set<EmployeeProperty> properties)
+    {
+        this.employeeProperties = properties;
+    }
+
+    public Set<EmployeeProperty> getEmployeeProperties()
+    {
+        return this.employeeProperties;
+    }
+
+    public void setSupervisor(Employee employee)
+    {
+        this.supervisor = employee;
+    }
+    public Employee getSupervisor()
+    {
+        return this.supervisor;
     }
 }

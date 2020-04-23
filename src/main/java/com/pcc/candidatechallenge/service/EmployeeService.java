@@ -22,6 +22,11 @@ public class EmployeeService
        return employeeDao.getTopLevelEmployees(recursiveLoad);
     }
 
+    public List<Employee> getTopLevelEmployees()
+    {
+        return employeeDao.getTopLevelEmployees();
+    }
+
     public Employee getEmployee(long ID, boolean recursiveLoad)
     {
         return employeeDao.getEmployee(ID, recursiveLoad);

@@ -9,17 +9,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class EmployeeController
 {
-
-    public EmployeeController()
-    {
-    }
+    public EmployeeController() {}
     private EmployeeService employeeService;
-
     @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -29,8 +24,8 @@ public class EmployeeController
     @ResponseBody
     public String getTopLevelEmployees()
     {
-        //Map<Long, Employee> employees = employeeService.getTopLevelEmployees(true);
-        List<Employee> employees = employeeService.getTopLevelEmployeesArray(true);
+        List<Employee> employees = employeeService.getTopLevelEmployees();
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String str = "";
@@ -45,7 +40,6 @@ public class EmployeeController
         return str;
     }
 
-    // show employee
     @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getEmployee(@PathVariable("id") long id)

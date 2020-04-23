@@ -1,18 +1,22 @@
 #### Employee Service
 
-The Employee service is a Maven Spring Boot and Spring 5 REST micro web service running on an imbeded Tomcat server with an in-memory H2 SQL database backend.
+The Employee service is a Spring Boot and Spring 5 REST micro service running on an imbeded Tomcat server with an in-memory H2 SQL database backend for demonstration purposes.
 
 #### Implementation
-The service uses JDBC to directly access the backend database rather than the Java Persistence API so that specific SQL queries could be tuned for maximum performance and can be configured to use lazy or eager loading of the employee hierarchy.  However, this could be changed to using JPA2 and Hibernate and configuring eager or lazy loading with a possible performance penalty and less control.  The Properties table is not very suitable in a relational database, it is used just as an example.
+In branch V_1, the service uses JDBC to directly access the backend database rather than JPA2/Hibernate so that specific SQL queries could be demonstrated and tuned for maximum performance.
+
+In branch V_2, the service uses JPA2 and Hibernate rather than directly using JDBC.  The service also uses the default OAuth2 authentication and TLS 1.3 security for demonstration purposes.
+
+The PROPERTIES database table is not very suitable in a relational database, it is more appropriate for a no SQL database.  It is used just as an example here.
 
 #### Docker
 
-A docker file is provided for a Windows Server image with remote debugging enabled.
+A docker file is provided for a Windows Server/openJDK image with remote debugging enabled.
 
 #### Database
 The database is provided with sample SQL data and consists of two tables, one that models the employee hierachy and one that supports an arbitrary dictionary of employee properties.  
 
-#### Schema
+##### Schema
 **EMPLOYEE**
 A primary id for an employee and a reference to the employees supervisor.
 
@@ -36,14 +40,14 @@ The REST endpoints for the service are the following:
 
 #####employees
 
-Returns a JSON string of all top level employees and their direct reports (either one level deep or with eager loading).
+Returns all top level employees and their direct reports (configurable for eager or lazy loading).
 
 
 #####employees/{id}
 
-Returns a JSON string of a specific employee ID and their direct reports (either one level deep or with eager loading)
+Returns a specific employee and their direct reports (configurable for eager or lazy loading)
 
-Sample JSON:
+####Sample JSON:
 
 _{
    "supervisorId" : 1,
@@ -83,3 +87,5 @@ _{
 ####Richard Baker
 
 ####jobs@richabaker.com 
+
+<div class="LI-profile-badge"  data-version="v1" data-size="large" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="richard-baker-a71bb827"><a class="LI-simple-link" href='https://www.linkedin.com/in/richard-baker-a71bb827?trk=profile-badge'>Richard Baker</a></div>

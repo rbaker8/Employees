@@ -3,6 +3,8 @@ select @ceo := scope_identity();
 insert into property (employee_id, key, value) values (@ceo, 'title', 'CEO');
 insert into property (employee_id, key, value) values (@ceo, 'name', 'Richard Baker');
 insert into property (employee_id, key, value) values (@ceo, 'phone', '503-267-6279');
+insert into property (employee_id, key, value) values (@ceo, 'email', 'jobs@richabaker.com');
+insert into property (employee_id, key, value) values (@ceo, 'website', 'richabaker.com');
 
 insert into employee (supervisor_id) values (@ceo);
 select @vpsales := scope_identity();
