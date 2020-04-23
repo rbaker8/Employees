@@ -1,6 +1,6 @@
 #### Employee Service
 
-The Employee service is a Spring Boot and Spring 5 REST micro service running on an imbeded Tomcat server with an in-memory H2 SQL database backend for demonstration purposes.
+The Employee service is a Spring Boot and Spring 5 REST micro service running on an embedded Tomcat server with an in-memory H2 SQL database backend for demonstration purposes.
 
 #### Implementation
 In branch V_1, the service uses JDBC to directly access the backend database rather than JPA2/Hibernate so that specific SQL queries could be demonstrated and tuned for maximum performance.
@@ -38,16 +38,16 @@ A map of key/value pairs of properties assigned to an employee.
 
 The REST endpoints for the service are the following:
 
-#####employees
+##### employees
 
 Returns all top level employees and their direct reports (configurable for eager or lazy loading).
 
 
-#####employees/{id}
+##### employees/{id}
 
 Returns a specific employee and their direct reports (configurable for eager or lazy loading)
 
-####Sample JSON:
+#### Sample JSON:
 
 _{
    "supervisorId" : 1,
@@ -84,8 +84,8 @@ _{
    "id" : 2
  }_
  
-####Richard Baker
+#### Richard Baker
 
-####jobs@richabaker.com 
+#### jobs@richabaker.com 
 
-<div class="LI-profile-badge"  data-version="v1" data-size="large" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="richard-baker-a71bb827"><a class="LI-simple-link" href='https://www.linkedin.com/in/richard-baker-a71bb827?trk=profile-badge'>Richard Baker</a></div>
+linkedin: <div class="LI-profile-badge"  data-version="v1" data-size="large" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="richard-baker-a71bb827"><a class="LI-simple-link" href='https://www.linkedin.com/in/richard-baker-a71bb827?trk=profile-badge'>Richard Baker</a></div>
