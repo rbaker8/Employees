@@ -1,4 +1,4 @@
-FROM openjdk:8-windowsservercore
+FROM openjdk:8
 
 LABEL maintainer="general@richabaker.com"
 ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=5006,server=y,suspend=n
