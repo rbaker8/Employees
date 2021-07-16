@@ -1,4 +1,4 @@
-package com.pcc.candidatechallenge.dao;
+package com.richabaker.employees.dao;
 
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package com.pcc.candidatechallenge.config;
+package com.richabaker.employees.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

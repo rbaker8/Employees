@@ -1,4 +1,4 @@
-package com.pcc.candidatechallenge.model;
+package com.richabaker.employees.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

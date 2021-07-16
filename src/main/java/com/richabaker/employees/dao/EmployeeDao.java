@@ -1,7 +1,7 @@
-package com.pcc.candidatechallenge.dao;
+package com.richabaker.employees.dao;
 
-import com.pcc.candidatechallenge.config.HibernateUtil;
-import com.pcc.candidatechallenge.model.Employee;
+import com.richabaker.employees.config.HibernateUtil;
+import com.richabaker.employees.model.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

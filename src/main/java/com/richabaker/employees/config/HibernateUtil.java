@@ -1,4 +1,4 @@
-package com.pcc.candidatechallenge.config;
+package com.richabaker.employees.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

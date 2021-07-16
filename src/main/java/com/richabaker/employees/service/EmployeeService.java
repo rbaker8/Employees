@@ -1,7 +1,7 @@
-package com.pcc.candidatechallenge.service;
+package com.richabaker.employees.service;
 
-import com.pcc.candidatechallenge.dao.EmployeeDao;
-import com.pcc.candidatechallenge.model.Employee;
+import com.richabaker.employees.dao.EmployeeDao;
+import com.richabaker.employees.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

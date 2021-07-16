@@ -1,4 +1,4 @@
-package com.pcc.candidatechallenge.config;
+package com.richabaker.employees.config;
 
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ import java.util.Properties;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "com.pcc.candidatechallenge")
+@ComponentScan(basePackages = "com.richabaker.employees")
 @EnableTransactionManagement
 public class SpringWebConfig extends WebMvcConfigurerAdapter
 {
@@ -52,7 +52,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter
     {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setPackagesToScan("com.pcc.candidatechallenge.model");
+        sessionFactoryBean.setPackagesToScan("com.richabaker.employees.model");
         sessionFactoryBean.setHibernateProperties(hibernateProperties());
         sessionFactoryBean.afterPropertiesSet();
         return sessionFactoryBean.getObject();

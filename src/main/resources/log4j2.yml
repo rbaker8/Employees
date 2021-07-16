@@ -21,7 +21,7 @@ Configuration:
 
   Loggers:
     logger:
-      - name: com.pcc.candidatechallenge
+      - name: com.richabaker.employees
         level: info
         additivity: false
         AppenderRef:

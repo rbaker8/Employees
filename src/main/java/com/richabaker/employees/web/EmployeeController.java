@@ -1,8 +1,8 @@
-package com.pcc.candidatechallenge.web;
+package com.richabaker.employees.web;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.pcc.candidatechallenge.model.Employee;
-import com.pcc.candidatechallenge.service.EmployeeService;
+import com.richabaker.employees.model.Employee;
+import com.richabaker.employees.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
